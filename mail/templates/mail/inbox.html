@@ -1,0 +1,68 @@
+{% extends "mail/layout.html" %}
+{% load static %}
+
+{% block body %}
+
+    <!-- https://getbootstrap.com/docs/5.1/forms/form-control/#readonly -->
+
+    <h2>{{ request.user.email }}</h2>
+
+    <button class="btn btn-sm btn-outline-primary" id="inbox">Inbox</button>
+    <button class="btn btn-sm btn-outline-primary" id="compose">Compose</button>
+    <button class="btn btn-sm btn-outline-primary" id="sent">Sent</button>
+    <button class="btn btn-sm btn-outline-primary" id="archived">Archived</button>
+    <a class="btn btn-sm btn-outline-primary" href="{% url 'logout' %}">Log Out</a>
+    <hr>
+    
+    <div id="emails-view">
+    </div>
+
+    <div id="specific-mail" class="">
+        <div class="" >
+           <strong> From: </strong>
+           <span id="specific-from"></span>
+        </div>
+        <div>
+            <strong> To: </strong>
+            <span id="specific-to"></span>
+         </div>
+         <div>
+            <strong> Subject: </strong>
+            <span id="specific-subject"></span>
+         </div>
+         <div>
+            <strong> Timestamp: </strong>
+            <span id="specific-time"></span>
+         </div>
+         <div>
+            <button class="btn btn-sm btn-outline-primary" id="specific-reply">Reply</button>
+         </div>
+         <hr>
+         <div>
+            <textarea readonly class="form-control-plaintext" name="body" id="specific-body" ></textarea>
+         </div>
+
+    </div>
+
+
+    <div id="compose-view">
+        <h3>New Email</h3>
+        <form id="compose-form">
+            <div class="form-group">
+                From: <input disabled class="form-control" value="{{ request.user.email }}">
+            </div>
+            <div class="form-group">
+                To: <input id="compose-recipients" class="form-control">
+            </div>
+            <div class="form-group">
+                <input class="form-control" id="compose-subject" placeholder="Subject">
+            </div>
+            <textarea class="form-control" id="compose-body" placeholder="Body"></textarea>
+            <input type="submit" class="btn btn-primary"/>
+        </form>
+    </div>
+{% endblock %}
+
+{% block script %}
+    <script src="{% static 'mail/inbox.js' %}"></script>
+{% endblock %}
